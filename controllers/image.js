@@ -16,9 +16,9 @@ app.models.predict(
     .catch(err => res.status(400).json('unable to work with api'))
 }
 
-if(faceFound) {
-    const handleImage = (req, res, db) => {
-        const { id } = req.body;
+const handleImage = (req, res, db) => {
+    const { id } = req.body;
+    if(faceFound) {
         db('users')
         .where('id', '=', id)
         .increment('entries', 1)
