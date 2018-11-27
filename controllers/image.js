@@ -27,6 +27,7 @@ const handleImage = (req, res, db) => {
             res.json(entries[0]);
         })
         .catch(err => res.status(400).json('unable to get entries'))
+        faceFound = {}
     }
 }
 
