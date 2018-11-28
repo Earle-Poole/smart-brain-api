@@ -18,8 +18,10 @@ const handleApiCall = (req, res) => {
 }
 
 const handleGeneralModelApiCall = (req, res) => {
-    app.models.predict(
-        Clarifai.GENERAL_MODEL, req.body.input)
+    app.models.initModel({id: Clarifai.GENERAL_MODEL, version: "aaa03c23b3724a16a56b629203edc62c"})
+        .then(generalModel => {
+            return generalModel.predict(req.body.input);
+        })
         .then(data => {
             console.log(data)
             itemsDetected = data.outputs[0].data.concepts;
