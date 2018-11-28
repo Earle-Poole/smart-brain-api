@@ -5,30 +5,32 @@ const app = new Clarifai.App({
   });
 
 let faceFound = {};
+let itemsDetected = {};
 
 const handleApiCall = (req, res) => {
-app.models.predict(
-    Clarifai.FACE_DETECT_MODEL, req.body.input)
-    .then(data => {
-        faceFound = data.outputs[0].data.regions;
-        res.json(data);
-    })
-    .catch(err => res.status(400).json('unable to work with api'))
+    app.models.predict(
+        Clarifai.FACE_DETECT_MODEL, req.body.input)
+        .then(data => {
+            faceFound = data.outputs[0].data.regions;
+            res.json(data);
+        })
+        .catch(err => res.status(400).json('unable to work with api'))
 }
 
 const handleGeneralModelApiCall = (req, res) => {
     app.models.predict(
         Clarifai.GENERAL_MODEL, req.body.input)
         .then(data => {
+            console.log(data)
             itemsDetected = data.outputs[0].data.concepts;
             res.json(data);
         })
         .catch(err => res.status(400).json('unable to work with api'))
-    }
+}
 
 const handleImage = (req, res, db) => {
     const { id } = req.body;
-    if(faceFound) {
+    if(faceFound || itemsDetected) {
         db('users')
         .where('id', '=', id)
         .increment('entries', 1)
@@ -38,6 +40,7 @@ const handleImage = (req, res, db) => {
         })
         .catch(err => res.status(400).json('unable to get entries'))
         faceFound = {}
+        itemsDetected = {}
     }
 }
 
