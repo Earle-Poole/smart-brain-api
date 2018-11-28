@@ -16,6 +16,16 @@ app.models.predict(
     .catch(err => res.status(400).json('unable to work with api'))
 }
 
+const handleGeneralModelApiCall = (req, res) => {
+    app.models.predict(
+        Clarifai.GENERAL_MODEL, req.body.input)
+        .then(data => {
+            itemsDetected = data.outputs[0].data.concepts;
+            res.json(data);
+        })
+        .catch(err => res.status(400).json('unable to work with api'))
+    }
+
 const handleImage = (req, res, db) => {
     const { id } = req.body;
     if(faceFound) {
@@ -33,5 +43,6 @@ const handleImage = (req, res, db) => {
 
 module.exports = {
     handleImage,
-    handleApiCall
+    handleApiCall,
+    handleGeneralModelApiCall
 }
