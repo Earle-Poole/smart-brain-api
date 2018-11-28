@@ -18,12 +18,10 @@ const handleApiCall = (req, res) => {
 }
 
 const handleGeneralModelApiCall = (req, res) => {
-    console.log(req.body.input)
     app.models.predict(
         Clarifai.GENERAL_MODEL, req.body.input)
         .then(data => {
-            console.log(data)
-            itemsDetected = data['outputs'][0]['data']['concepts'];
+            itemsDetected = data.outputs[0].data.concepts;
             res.json(data);
         })
         .catch(err => res.status(400).json('unable to work with api'))
