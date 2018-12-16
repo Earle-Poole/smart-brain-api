@@ -27,6 +27,17 @@ const handleGeneralModelApiCall = (req, res) => {
         .catch(err => res.status(400).json('unable to work with api'))
 }
 
+const handleCelebrityDetectionApiCall = (req, res) => {
+    app.models.predict(
+        "e466caa0619f444ab97497640cefc4dc", req.body.input)
+        .then(data => {
+            console.log(data)
+            itemsDetected = data.outputs[0].data.concepts;
+            res.json(data);
+        })
+        .catch(err => res.status(400).json('unable to work with api'))
+}
+
 const handleImage = (req, res, db) => {
     const { id } = req.body;
     if(faceFound || itemsDetected) {
@@ -46,5 +57,6 @@ const handleImage = (req, res, db) => {
 module.exports = {
     handleImage,
     handleApiCall,
-    handleGeneralModelApiCall
+    handleGeneralModelApiCall,
+    handleCelebrityDetectionApiCall
 }
