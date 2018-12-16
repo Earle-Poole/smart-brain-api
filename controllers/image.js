@@ -9,41 +9,35 @@ let itemsDetected = {};
 
 const handleApiCall = (req, res) => {
     app.models.predict(
-        Clarifai.FACE_DETECT_MODEL, req.body.input)
-        .then(data => {
-            faceFound = data.outputs[0].data.regions;
-            res.json(data);
-        })
-        .catch(err => res.status(400).json('unable to work with api'))
+        Clarifai.FACE_DETECT_MODEL, req.body.input
+    )
+    .then(data => {
+        faceFound = data.outputs[0].data.regions;
+        res.json(data);
+    })
+    .catch(err => res.status(400).json('unable to work with api'))
 }
 
 const handleGeneralModelApiCall = (req, res) => {
     app.models.predict(
-        Clarifai.GENERAL_MODEL, req.body.input)
-        .then(data => {
-            itemsDetected = data.outputs[0].data.concepts;
-            res.json(data);
-        })
-        .catch(err => res.status(400).json('unable to work with api'))
+        Clarifai.GENERAL_MODEL, req.body.input
+    )
+    .then(data => {
+        itemsDetected = data.outputs[0].data.concepts;
+        res.json(data);
+    })
+    .catch(err => res.status(400).json('unable to work with api'))
 }
 
-const handleCelebrityDetectionApiCall = (req, res) => {
-    // app.models.predict(
-    //     Clarifai., req.body.input)
-    //     .then(data => {
-    //         itemsDetected = data.outputs[0].data.concepts;
-    //         res.json(data);
-    //     })
-    //     .catch(err => res.status(400).json('unable to work with api'))
-    app.models.predict("e466caa0619f444ab97497640cefc4dc", req.body.input)
-        .then(
-        function(response) {
-            console.log(response)
-        },
-        function(err) {
-            console.log(err)
-        }
-        );
+const handleFoodDetectionApiCall = (req, res) => {
+    app.models.predict(
+        Clarifai.FOOD_MODEL, req.body.input
+    )
+    .then(data => {
+        itemsDetected = data.outputs[0].data.concepts;
+        res.json(data);
+    })
+    .catch(err => res.status(400).json('unable to work with api'))
 }
 
 const handleImage = (req, res, db) => {
@@ -66,5 +60,5 @@ module.exports = {
     handleImage,
     handleApiCall,
     handleGeneralModelApiCall,
-    handleCelebrityDetectionApiCall
-}
+    handleFoodDetectionApiCall
+};

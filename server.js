@@ -31,7 +31,7 @@ app.get('/profile/:id', (req, res) => {profileId.handleProfileId(req, res, db)} 
 app.put('/image', (req, res) => {image.handleImage(req, res, db)} )
 app.post('/imageurl', (req, res) => {image.handleApiCall(req, res)} )
 app.post('/generalmodelurl', (req, res) => {image.handleGeneralModelApiCall(req, res)} )
-app.post('/celebritydetectionurl', (req, res) => {image.handleCelebrityDetectionApiCall(req, res)} )
+app.post('/fooddetectionurl', (req, res) => {image.handleFoodDetectionApiCall(req, res)} )
 
 
 const PORT = process.env.PORT;
