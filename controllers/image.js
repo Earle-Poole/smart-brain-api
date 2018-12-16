@@ -11,7 +11,7 @@ const handleFaceDetectionApiCall = (req, res) => {
         Clarifai.FACE_DETECT_MODEL, req.body.input
     )
     .then(data => {
-        if(data.outputs[0]){itemFound++};
+        if(data.outputs[0].data.regions[0].region_info.bounding_box){itemFound++};
         res.json(data);
     })
     .catch(err => res.status(400).json('unable to work with api'))
