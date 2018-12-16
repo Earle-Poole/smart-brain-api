@@ -30,7 +30,7 @@ const handleGeneralModelApiCall = (req, res) => {
 
 const handleFoodDetectionApiCall = (req, res) => {
     app.models.predict(
-        Clarifai.FOOD_MODEL, req.body.input
+        "e466caa0619f444ab97497640cefc4dc", req.body.input
     )
     .then(data => {
         if(data.outputs[0]){itemFound++};
