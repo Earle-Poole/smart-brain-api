@@ -29,7 +29,7 @@ app.post('/signin', (req, res) => {signin.handleSignin(req, res, db, bcrypt)} )
 app.post('/register', (req, res) => {register.handleRegister(req, res, db, bcrypt)} )
 app.get('/profile/:id', (req, res) => {profileId.handleProfileId(req, res, db)} )
 app.put('/image', (req, res) => {image.handleImage(req, res, db)} )
-app.post('/imageurl', (req, res) => {image.handleApiCall(req, res)} )
+app.post('/imageurl', (req, res) => {image.handleFaceDetectionApiCall(req, res)} )
 app.post('/generalmodelurl', (req, res) => {image.handleGeneralModelApiCall(req, res)} )
 app.post('/fooddetectionurl', (req, res) => {image.handleFoodDetectionApiCall(req, res)} )
 

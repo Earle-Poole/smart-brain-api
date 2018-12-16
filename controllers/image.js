@@ -4,15 +4,14 @@ const app = new Clarifai.App({
     apiKey: 'a071956ee8854fe2b62e11dd64ff038c'
   });
 
-let faceFound = {};
-let itemsDetected = {};
+var itemFound = 0;
 
-const handleApiCall = (req, res) => {
+const handleFaceDetectionApiCall = (req, res) => {
     app.models.predict(
         Clarifai.FACE_DETECT_MODEL, req.body.input
     )
     .then(data => {
-        faceFound = data.outputs[0].data.regions;
+        if(data){itemFound++};
         res.json(data);
     })
     .catch(err => res.status(400).json('unable to work with api'))
@@ -23,7 +22,7 @@ const handleGeneralModelApiCall = (req, res) => {
         Clarifai.GENERAL_MODEL, req.body.input
     )
     .then(data => {
-        itemsDetected = data.outputs[0].data.concepts;
+        if(data){itemFound++};
         res.json(data);
     })
     .catch(err => res.status(400).json('unable to work with api'))
@@ -34,7 +33,7 @@ const handleFoodDetectionApiCall = (req, res) => {
         Clarifai.FOOD_MODEL, req.body.input
     )
     .then(data => {
-        itemsDetected = data.outputs[0].data.concepts;
+        if(data){itemFound++};
         res.json(data);
     })
     .catch(err => res.status(400).json('unable to work with api'))
@@ -42,7 +41,7 @@ const handleFoodDetectionApiCall = (req, res) => {
 
 const handleImage = (req, res, db) => {
     const { id } = req.body;
-    if(faceFound || itemsDetected) {
+    if(itemFound == 1) {
         db('users')
         .where('id', '=', id)
         .increment('entries', 1)
@@ -51,14 +50,13 @@ const handleImage = (req, res, db) => {
             res.json(entries[0]);
         })
         .catch(err => res.status(400).json('unable to get entries'))
-        faceFound = {}
-        itemsDetected = {}
+        itemFound = 0;
     }
 }
 
 module.exports = {
     handleImage,
-    handleApiCall,
+    handleFaceDetectionApiCall,
     handleGeneralModelApiCall,
     handleFoodDetectionApiCall
 };
