@@ -32,6 +32,7 @@ app.put('/image', (req, res) => {image.handleImage(req, res, db)} )
 app.post('/imageurl', (req, res) => {image.handleFaceDetectionApiCall(req, res)} )
 app.post('/generalmodelurl', (req, res) => {image.handleGeneralModelApiCall(req, res)} )
 app.post('/fooddetectionurl', (req, res) => {image.handleFoodDetectionApiCall(req, res)} )
+app.post('/celebdetectionurl', (req, res) => {image.handleCelebDetectionApiCall(req, res)} )
 
 
 const PORT = process.env.PORT;
