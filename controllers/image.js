@@ -31,7 +31,6 @@ const handleCelebrityDetectionApiCall = (req, res) => {
     app.models.predict(
         Clarifai.CELEBRITY_MODEL, req.body.input)
         .then(data => {
-            console.log(data)
             itemsDetected = data.outputs[0].data.concepts;
             res.json(data);
         })
