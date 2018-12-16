@@ -28,10 +28,8 @@ const handleGeneralModelApiCall = (req, res) => {
 }
 
 const handleCelebrityDetectionApiCall = (req, res) => {
-    var model = app.models.get('celeb-v1.3')
-    
     app.models.predict(
-        Clarifai.CELEB_MODEL, req.body.input)
+        Clarifai.GENERAL_MODEL, req.body.input)
         .then(data => {
             itemsDetected = data.outputs[0].data.concepts;
             res.json(data);
