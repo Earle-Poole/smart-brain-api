@@ -28,13 +28,22 @@ const handleGeneralModelApiCall = (req, res) => {
 }
 
 const handleCelebrityDetectionApiCall = (req, res) => {
-    app.models.predict(
-        Clarifai.GENERAL_MODEL, req.body.input)
-        .then(data => {
-            itemsDetected = data.outputs[0].data.concepts;
-            res.json(data);
-        })
-        .catch(err => res.status(400).json('unable to work with api'))
+    // app.models.predict(
+    //     Clarifai., req.body.input)
+    //     .then(data => {
+    //         itemsDetected = data.outputs[0].data.concepts;
+    //         res.json(data);
+    //     })
+    //     .catch(err => res.status(400).json('unable to work with api'))
+    app.models.predict("e466caa0619f444ab97497640cefc4dc", req.body.input)
+        .then(
+        function(response) {
+            console.log(response)
+        },
+        function(err) {
+            console.log(err)
+        }
+        );
 }
 
 const handleImage = (req, res, db) => {
