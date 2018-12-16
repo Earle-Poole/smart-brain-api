@@ -11,7 +11,7 @@ const handleFaceDetectionApiCall = (req, res) => {
         Clarifai.FACE_DETECT_MODEL, req.body.input
     )
     .then(data => {
-        if(data){itemFound++};
+        if(data.outputs[0]){itemFound++};
         res.json(data);
     })
     .catch(err => res.status(400).json('unable to work with api'))
@@ -22,7 +22,7 @@ const handleGeneralModelApiCall = (req, res) => {
         Clarifai.GENERAL_MODEL, req.body.input
     )
     .then(data => {
-        if(data){itemFound++};
+        if(data.outputs[0]){itemFound++};
         res.json(data);
     })
     .catch(err => res.status(400).json('unable to work with api'))
@@ -33,7 +33,7 @@ const handleFoodDetectionApiCall = (req, res) => {
         Clarifai.FOOD_MODEL, req.body.input
     )
     .then(data => {
-        if(data){itemFound++};
+        if(data.outputs[0]){itemFound++};
         res.json(data);
     })
     .catch(err => res.status(400).json('unable to work with api'))
